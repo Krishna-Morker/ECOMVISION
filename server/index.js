@@ -10,6 +10,9 @@ import generalroutes from "./routes/general.js";
 import managementroutes from "./routes/management.js";
 import salesroutes from "./routes/sales.js";
 
+/* data imports */
+import User from "./models/User.js";
+import { dataUser } from "./data/index.js";
 
 
 /* Configuration */
@@ -37,5 +40,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,  
 }).then(()=>{
     app.listen(PORT,()=>console.log(`Server Port: ${PORT}`));
+    // Add data one by one
+    // User.insertMany(dataUser);
 })
 .catch((error) => console.log(`${error} did not connect`));
