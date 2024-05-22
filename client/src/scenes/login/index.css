@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    background-color: #ffff;
+    padding: 10px;
+  }
+  
+  .image-container img {
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+    height: auto;
+  }
+  
+  .form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .create-one{
+    color: black;
+  }
+
+  .separator::before, .separator::after {
+    content: "";
+    display: inline-block;
+    height: 1px;
+    background-color: rgb(0, 0, 0) !important;
+    width: 39%;
+    margin-top: 10px;
+}
