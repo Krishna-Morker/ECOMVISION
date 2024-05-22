@@ -9,9 +9,12 @@ import clientroutes from "./routes/client.js";
 import generalroutes from "./routes/general.js";
 import managementroutes from "./routes/management.js";
 import salesroutes from "./routes/sales.js";
+import  OverallStat  from "./models/OverallStat.js";
 
 /* data imports */
-
+import {
+    dataOverallStat,
+} from "./data/index.js";
 import User from "./models/User.js";
 import { dataUser, dataProduct, dataProductStat , dataTransaction} from "./data/index.js";
 import Product from "./models/Product.js";
@@ -44,6 +47,7 @@ mongoose.connect(process.env.MONGO_URL, {
 }).then(()=>{
     app.listen(PORT,()=>console.log(`Server Port: ${PORT}`));
     // Add data one by one
+    // OverallStat.insertMany(dataOverallStat);
     // Product.insertMany(dataProduct);
     // ProductStat.insertMany(dataProductStat);
     //    Transaction.insertMany(dataTransaction);
