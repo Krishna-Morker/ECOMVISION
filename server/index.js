@@ -12,11 +12,8 @@ import salesroutes from "./routes/sales.js";
 import  OverallStat  from "./models/OverallStat.js";
 
 /* data imports */
-import {
-    dataOverallStat,
-} from "./data/index.js";
 import User from "./models/User.js";
-import { dataUser, dataProduct, dataProductStat , dataTransaction} from "./data/index.js";
+import { dataUser, dataProduct, dataProductStat , dataTransaction, dataOverallStat,} from "./data/index.js";
 import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js"; 
 import ProductStat from "./models/ProductStat.js";
