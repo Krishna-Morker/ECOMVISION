@@ -7,6 +7,9 @@ import { theme, themeSettings } from 'theme';
 import  Dashboard  from 'scenes/dashboard';
 import Layout from 'scenes/layout';
 import Products from 'scenes/products';
+import Login from 'scenes/login';
+import Register from 'scenes/register';
+
 import Customers from 'scenes/customers';
 import Transactions from 'scenes/transactions';
 import Geography from "scenes/geography";
@@ -22,6 +25,8 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline/>
           <Routes>
+              <Route path="/login" element={<Login/>} />
+              <Route path="/register" element={<Register/>} />
               <Route element={<Layout />} >
                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
                  <Route path="/dashboard" element={<Dashboard />} />
