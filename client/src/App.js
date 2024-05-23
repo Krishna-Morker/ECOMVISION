@@ -9,6 +9,7 @@ import Layout from 'scenes/layout';
 import Products from 'scenes/products';
 import Login from 'scenes/login';
 import Register from 'scenes/register';
+import Admin from "scenes/admin";
 
 import Customers from 'scenes/customers';
 import Transactions from 'scenes/transactions';
@@ -40,6 +41,7 @@ function App() {
                  <Route path="/daily" element={<Daily />} />
                  <Route path="/monthly" element={<Monthly />} />
                  <Route path="/breakdown" element={<Breakdown />} />
+                 <Route path="/admin" element={<Admin />} />
               </Route>
           </Routes>
         </ThemeProvider>
