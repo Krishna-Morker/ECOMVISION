@@ -13,10 +13,11 @@ import  OverallStat  from "./models/OverallStat.js";
 
 /* data imports */
 import User from "./models/User.js";
-import { dataUser, dataProduct, dataProductStat , dataTransaction, dataOverallStat,} from "./data/index.js";
+import { dataUser, dataProduct, dataProductStat , dataTransaction, dataOverallStat,dataAffiliateStat} from "./data/index.js";
 import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js"; 
 import ProductStat from "./models/ProductStat.js";
+import AffiliateStat from "./models/AffiliateStat.js";
 
 /* Configuration */
 dotenv.config();
@@ -44,6 +45,7 @@ mongoose.connect(process.env.MONGO_URL, {
 }).then(()=>{
     app.listen(PORT,()=>console.log(`Server Port: ${PORT}`));
     // Add data one by one
+    // AffiliateStat.insertMany(dataAffiliateStat);
     // OverallStat.insertMany(dataOverallStat);
     // Product.insertMany(dataProduct);
     // ProductStat.insertMany(dataProductStat);
