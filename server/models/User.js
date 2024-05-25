@@ -1,4 +1,9 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const UserSchema = new mongoose.Schema(
     {
         name:{
@@ -19,6 +24,12 @@ const UserSchema = new mongoose.Schema(
             min:5,
 
         },
+        tokens:[{
+            token:{ 
+                type:String
+            }
+        
+        }],
         city:String,
         state:String,
         country:String,
@@ -33,6 +44,17 @@ const UserSchema = new mongoose.Schema(
     },
     {timestamps:true}
 )
+UserSchema.methods.generateAuthToken= async function(){
+    try {
+        const toke= jwt.sign({email:this.email},process.env.Secret_Key);
+        this.tokens=this.tokens.concat({token:toke});
+        await this.save();
+        console.log(this.tokens,"I am in usermodel");
+        return toke;
+    } catch (error) {
+        res.send("the error part"+error);
 
+    }
+}
 const User = mongoose.model("User",UserSchema);
 export default User; 

@@ -6,9 +6,9 @@ import Logo from "../../assets/app_logo.png";
 import home from "../../assets/home.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { loginRoute } from "../utils/APIRoutes";
+import { loginRoute } from "../../utils/APIRoutes";
 import { FaGoogle } from "react-icons/fa";
-// import {host} from "../utils/APIRoutes"
+import {host} from "../../utils/APIRoutes"
 import  Cookie from 'js-cookie';
 import "./index.css";
 
@@ -23,18 +23,42 @@ export default function Login() {
     theme: "dark",
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) 
+          {
+              navigate("/dashboard");
+          }
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
+
 
   useEffect(() => {
     const ch = async () => {
       let h=Cookie.get('jwt');
       
       
-  //  const response=await axios.get(`http://localhost:8080/check/${h}`,{withCredentials:true});
-  const response = {};
+   const response=await axios.get(`${host}/check/${h}`,{withCredentials:true});
    console.log(response?.data,"login")
    if(response?.data?.chk==true){
   
-    navigate("/home");
+    navigate("/dashboard");
    }
   }
   ch();
@@ -57,25 +81,23 @@ export default function Login() {
   };
 
   const simulateGoogleSignIn= async ()=>{
-   
-     window.open("http://localhost:8080/api/auth/google","_self");
+    window.open(`${host}/api/auth/google`,"_self");
 
-  }
+ }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
       const { username, password } = values;
-      // const { data } = await axios.post("", {
-      //   username,
-      //   password,
-      // },{withCredentials: true});
-      const data ={};
+      const { data } = await axios.post(loginRoute, {
+        username,
+        password,
+      },{withCredentials: true});
       if (data?.status === false) {
         toast.error(data?.msg, toastOptions);
       }
       if (data?.status === true) {
-        navigate("/home");
+        navigate("/dashboard");
       }
     }
   };
@@ -116,7 +138,7 @@ export default function Login() {
           <div class="separator" id="password">or</div>
                 <div class="google">
                 <FaGoogle size={30}/>
-                <button type="button" class="google-signin-btn" onClick={simulateGoogleSignIn}>Sign in with Google</button>
+                {/* <button type="button" class="google-signin-btn" onClick={simulateGoogleSignIn}>Sign in with Google</button> */}
                 </div>
                 
           <span className="create-one">

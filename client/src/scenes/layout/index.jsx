@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Navbar from 'components/Navbar.jsx';
 import Sidebar from 'components/Sidebar';
 import { useGetUserQuery } from 'state/api';
+import Logout from 'scenes/logout';
 function Layout() {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -28,6 +29,7 @@ function Layout() {
       />
       <Outlet />
     </Box>
+    <Logout/>
   </Box>
   );
 };

@@ -6,15 +6,20 @@ import Logo from "../../assets/app_logo.png";
 import home from "../../assets/home.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { loginRoute } from "../utils/APIRoutes";
+import { registerRoute } from "../../utils/APIRoutes";
 import { FaGoogle } from "react-icons/fa";
-// import {host} from "../utils/APIRoutes"
+import {host} from "../../utils/APIRoutes"
 import  Cookie from 'js-cookie';
 import "./index.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [values, setValues] = useState({ username: "", password: "" });
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -22,58 +27,80 @@ export default function Login() {
     draggable: true,
     theme: "dark",
   };
-
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
-    const ch = async () => {
-      let h=Cookie.get('jwt');
-      
-      
-  //  const response=await axios.get(`http://localhost:8080/check/${h}`,{withCredentials:true});
-  const response = {};
-   console.log(response?.data,"login")
-   if(response?.data?.chk==true){
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) 
+          {
+              setCurrentUser(response.data.user)
+              navigate("/dashboard");
+          }
+        }
   
-    navigate("/home");
-   }
-  }
-  ch();
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
   }, []);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const validateForm = () => {
-    const { username, password } = values;
-    if (username === "") {
-      toast.error("Email and Password is required.", toastOptions);
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = values;
+    if (password !== confirmPassword) {
+      toast.error(
+        "Password and confirm password should be same.",
+        toastOptions
+      );
       return false;
-    } else if (password === "") {
-      toast.error("Email and Password is required.", toastOptions);
+    } else if (username.length < 3) {
+      toast.error(
+        "Username should be greater than 3 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (password.length < 8) {
+      toast.error(
+        "Password should be equal or greater than 8 characters.",
+        toastOptions
+      );
+      return false;
+    } else if (email === "") {
+      toast.error("Email is required.", toastOptions);
       return false;
     }
+
     return true;
   };
 
-  const simulateGoogleSignIn= async ()=>{
-   
-     window.open("http://localhost:8080/api/auth/google","_self");
-
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (validateForm()) {
-      const { username, password } = values;
-      const { data } = await axios.post("", {
+    if (handleValidation()) {
+      const { email, username, password } = values;
+      const { data } = await axios.post(registerRoute, {
         username,
+        email,
         password,
       },{withCredentials: true});
-      if (data?.status === false) {
-        toast.error(data?.msg, toastOptions);
+      console.log("hii");
+      if (data.status === false) {
+        toast.error(data.msg, toastOptions);
       }
-      if (data?.status === true) {
+      if (data.status === true) {
         navigate("/dashboard");
       }
     }
@@ -90,7 +117,7 @@ export default function Login() {
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>ECOMVISION</h1>
           </div>
           <input
             type="text"

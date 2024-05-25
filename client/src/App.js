@@ -10,7 +10,6 @@ import Products from 'scenes/products';
 import Login from 'scenes/login';
 import Register from 'scenes/register';
 import Admin from "scenes/admin";
-
 import Customers from 'scenes/customers';
 import Transactions from 'scenes/transactions';
 import Geography from "scenes/geography";
@@ -18,6 +17,9 @@ import Overview from "scenes/overview";
 import Daily from 'scenes/daily';
 import Monthly from 'scenes/monthly';
 import  Breakdown from "./scenes/breakdown";
+import Performance from "scenes/performance";
+import Forgotpass from 'scenes/forgetPass';
+import Changepass from 'scenes/changepass';
 
 function App() {
   const mode=useSelector((state)=>state.global.mode)
@@ -30,6 +32,8 @@ function App() {
           <Routes>
               <Route path="/login" element={<Login/>} />
               <Route path="/register" element={<Register/>} />
+              <Route path="/forgotpassword" element={<Forgotpass />} />
+              <Route path="/changepass/:id" element={<Changepass />} />
               <Route element={<Layout />} >
                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
                  <Route path="/dashboard" element={<Dashboard />} />
@@ -42,6 +46,7 @@ function App() {
                  <Route path="/monthly" element={<Monthly />} />
                  <Route path="/breakdown" element={<Breakdown />} />
                  <Route path="/admin" element={<Admin />} />
+                 <Route path="/performance" element={<Performance />} />
               </Route>
           </Routes>
         </ThemeProvider>
