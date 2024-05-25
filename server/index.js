@@ -55,9 +55,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+    console.log(`Received request: ${req.method} ${req.url}`);
+    next();
+  });
+
 app.get("/login/sucess",async(req,res)=>{
     try {
-    // console.log(req.cookies);
+    console.log(req.cookies);
       const token=req.cookies.jwt;
     //   console.log(token,"toke");
       let islog=0;
