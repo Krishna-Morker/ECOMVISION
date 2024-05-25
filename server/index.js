@@ -35,6 +35,8 @@ const corsOptions ={
     origin: allowedOrigin, 
     credentials:true,            
     optionSuccessStatus:200,
+    sameSite:'none',
+    secure:true,
   }
 app.use(cors(corsOptions));
 dotenv.config();
