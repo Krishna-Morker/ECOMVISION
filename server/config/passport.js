@@ -8,7 +8,7 @@ const configurePassport = (passport) => {
         new OAuth2Strategy({
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "http://localhost:5001/api/auth/google/callback",
+            callbackURL: "https://ecomvision-jbtw.onrender.com/api/auth/google/callback",
             scope: ["profile", "email"]
         },
         async (accessToken, refreshToken, profile, done) => {

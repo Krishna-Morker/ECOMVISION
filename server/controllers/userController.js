@@ -82,7 +82,7 @@ export const forgotpost = async (req, res) => {
     if (user) {
       const secret = user.password + process.env.Secret_Key;
       const token = jwt.sign({ email: user.email }, secret, { expiresIn: '15m' });
-      const link = `http://localhost:5001/api/auth/reset-password/${user._id}/${token}`;
+      const link = `https://ecomvision-jbtw.onrender.com/api/auth/reset-password/${user._id}/${token}`;
 
       const transporter = nodemailer.createTransport({
         service: 'gmail',
