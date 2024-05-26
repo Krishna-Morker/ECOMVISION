@@ -18,9 +18,9 @@ export const login = async (req, res, next) => {
     const token = await user.generateAuthToken();
     res.cookie("jwt", token, {
       expires: new Date(Date.now() + 120000000000000),
-      httpOnly: false,
-      // sameSite: 'none',
-      // secure: true
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true
     });
     return res.json({ status: true, user });
   } catch (ex) {
@@ -49,8 +49,8 @@ export const register = async (req, res, next) => {
     res.cookie("jwt", token, {
       expires: new Date(Date.now() + 120000000000000),
       httpOnly: true,
-      // sameSite: 'none',
-      // secure: true
+      sameSite: 'none',
+      secure: true
     });
 
     return res.status(201).json({ status: true, user });
