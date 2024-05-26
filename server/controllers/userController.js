@@ -50,7 +50,7 @@ export const register = async (req, res, next) => {
       expires: new Date(Date.now() + 120000000000000),
       httpOnly: true,
       sameSite: 'none',
-      secure: false
+      secure: true
     });
 
     return res.status(201).json({ status: true, user });
