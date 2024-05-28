@@ -11,6 +11,7 @@ import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
 import profileImage from "assets/app_logo.png";
+import Logout from 'scenes/logout';
 import {
   AppBar,
   Button,
@@ -102,6 +103,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
            </FlexBetween>
 
+          <Logout/>
         </FlexBetween>
       </Toolbar>
     </AppBar>

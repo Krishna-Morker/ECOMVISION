@@ -14,7 +14,7 @@ export default function Logout() {
     const data = await axios.get(`${logoutRoute}/${response.data.user._id}`,{withCredentials:true});
     if (data.status === 200) {
    
-   // Cookie.remove('jwt', { path: '/' });
+   Cookie.remove('jwt', { path: '/' });
       navigate("/login");
     }
   };
