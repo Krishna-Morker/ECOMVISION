@@ -138,7 +138,7 @@ export default function Login() {
           <div class="separator" id="password">or</div>
                 <div class="google">
                 <FaGoogle size={30}/>
-                {/* <button type="button" class="google-signin-btn" onClick={simulateGoogleSignIn}>Sign in with Google</button> */}
+                <button type="button" class="google-signin-btn" onClick={simulateGoogleSignIn}>Sign in with Google</button>
                 </div>
                 
           <span className="create-one">
