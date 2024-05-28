@@ -25,5 +25,6 @@ const allowedOrigin=[
     'https://careerforge-pearl.vercel.app/api/auth/reset-password',
     'https://careerforge-pearl.vercel.app/changepass',
     'https://careerforge-pearl.vercel.app/api/auth/google/callback',
+    'https://ecomvision-jbtw.onrender.com',
 ]
 export default allowedOrigin;

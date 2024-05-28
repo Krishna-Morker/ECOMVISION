@@ -124,7 +124,7 @@ export const resetpass = async (req, res) => {
     const user = await User.findOne({ _id: id });
     const secret = user.password + process.env.Secret_Key;
     jwt.verify(token, secret);
-    res.redirect(`http://localhost:3000/changepass/${id}`);
+    res.redirect(`https://vercel.com/krishnas-projects-e183a75e/changepass/${id}`);
   } catch (error) {
     res.send(error.message);
   }
