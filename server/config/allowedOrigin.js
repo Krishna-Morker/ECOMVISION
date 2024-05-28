@@ -27,5 +27,6 @@ const allowedOrigin=[
     'https://careerforge-pearl.vercel.app/api/auth/google/callback',
     'https://ecomvision-jbtw.onrender.com',
     'https://ecomvision-sigma.vercel.app',
+    'https://ecomvision-n2myz736c-krishnas-projects-e183a75e.vercel.app/',
 ]
 export default allowedOrigin;
