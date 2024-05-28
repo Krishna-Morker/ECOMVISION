@@ -24,6 +24,10 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { logoutRoute,host } from "../utils/APIRoutes";
+import  Cookie from 'js-cookie';
+import axios from "axios";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -33,6 +37,20 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+
+  const navigate = useNavigate();
+    
+    const handleLogout = async () => {
+      handleClose();
+     console.log("123");
+      const response = await axios.get(`${host}/login/sucess`, { withCredentials: true });
+      const data = await axios.get(`${logoutRoute}/${response.data.user._id}`,{withCredentials:true});
+      if (data.status === 200) {
+     
+     Cookie.remove('jwt', { path: '/' });
+        navigate("/login");
+      }
+    };
 
   return (
     <AppBar
@@ -98,7 +116,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                     
             </Button>
             <Menu anchorEl={anchorEl} open={isOpen} onClose={handleClose} anchorOrigin={{vertical:"bottom", horizontal:"center"}}>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
 
            </FlexBetween>

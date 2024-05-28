@@ -35,7 +35,7 @@ function App() {
               <Route path="/forgotpassword" element={<Forgotpass />} />
               <Route path="/changepass/:id" element={<Changepass />} />
               <Route element={<Layout />} >
-                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                 <Route path="/" element={<Navigate to="/login" replace />} />
                  <Route path="/dashboard" element={<Dashboard />} />
                  <Route path="/products" element={<Products/>}/>
                  <Route path="/customers" element={<Customers/>}/>
