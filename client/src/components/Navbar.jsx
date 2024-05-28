@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
@@ -11,7 +11,6 @@ import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
 import profileImage from "assets/app_logo.png";
-import Logout from 'scenes/logout';
 import {
   AppBar,
   Button,
@@ -37,8 +36,33 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-
   const navigate = useNavigate();
+  const [currentUser,setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+       console.log("fetchind Data")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) setCurrentUser(response.data.user);
+        }else{
+          navigate("/login")
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
     
     const handleLogout = async () => {
       handleClose();
@@ -97,7 +121,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             <Box 
                     component="img"
                     alt="profile"
-                    src={profileImage}
+                    src='https://res.cloudinary.com/drxcjij97/image/upload/v1707052827/zupx5ylgkrtq33lzzkma.png'
                     height="32px"
                     width="32px"
                     borderRadius="50%"
@@ -106,11 +130,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
             
             <Box textAlign="left">
                         <Typography fontWeight="bold" fontSize="0.85rem" sx={{color:theme.palette.secondary[100]}}>
-                            {user.name}
+                            {currentUser?.name}
                         </Typography>
-                        <Typography  fontSize="0.75rem" sx={{color:theme.palette.secondary[200]}}>
+                       {currentUser?.occupation && <Typography  fontSize="0.75rem" sx={{color:theme.palette.secondary[200]}}>
                             {user.occupation}
-                        </Typography>
+                        </Typography>}
                         </Box>
                         <ArrowDropDownOutlined sx={{color:theme.palette.secondary[300] , fontSize:"25px" }} />
                     
@@ -121,7 +145,6 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
            </FlexBetween>
 
-          <Logout/>
         </FlexBetween>
       </Toolbar>
     </AppBar>

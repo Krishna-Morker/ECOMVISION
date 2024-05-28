@@ -1,16 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
 import { useGetUserPerformanceQuery } from "state/api";
 import { useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import CustomColumnMenu from "components/DataGridCustomColumnMenu";
+import { host } from "../../utils/APIRoutes";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Performance = () => {
   const theme = useTheme();
   const userId = useSelector((state) => state.global.userId);
   const { data, isLoading } = useGetUserPerformanceQuery(userId);
+  const [currentUser,setCurrentUser] = useState(undefined);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+       console.log("fetchind Data")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) setCurrentUser(response.data.user);
+        }else{
+          navigate("/login")
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
+  
   const columns = [
     {
       field: "_id",

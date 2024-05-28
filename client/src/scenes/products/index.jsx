@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import {
   Box,
   Card,
@@ -14,6 +13,9 @@ import {
 } from "@mui/material";
 import Header from "components/Header";
 import { useGetProductsQuery } from "state/api";
+import axios from "axios";
+import { host } from "../../utils/APIRoutes";
+import { useNavigate } from "react-router-dom";
 
 const Product = ({
   _id,
@@ -27,6 +29,33 @@ const Product = ({
 }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentUser,setCurrentUser] = useState(undefined);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+       console.log("fetchind Data")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) setCurrentUser(response.data.user);
+        }else{
+          navigate("/login")
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
 
   return (
     <Card

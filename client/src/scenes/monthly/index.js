@@ -1,12 +1,42 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import { ResponsiveLine } from "@nivo/line";
 import { useGetSalesQuery } from "../../state/api";
+import { host } from "../../utils/APIRoutes";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Monthly = () => {
   const { data } = useGetSalesQuery();
   const theme = useTheme();
+  const [currentUser,setCurrentUser] = useState(undefined);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+       console.log("fetchind Data")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) setCurrentUser(response.data.user);
+        }else{
+          navigate("/login")
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
 
   const [formattedData] = useMemo(() => {
     if (!data) return [];

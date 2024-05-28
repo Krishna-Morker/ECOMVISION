@@ -32,6 +32,8 @@ import {useEffect,useState} from 'react';
 import {useLocation,useNavigate} from 'react-router-dom';
 import FlexBetween from 'components/FlexBetween';
 import profileImage from "assets/app_logo.png";
+import { host } from "../utils/APIRoutes";
+import axios from "axios";
 
 const navItems = [
     {
@@ -103,6 +105,32 @@ const Sidebar = ({
     const [active, setActive] = useState("");
     const navigate = useNavigate();
     const theme  = useTheme();
+    const [currentUser,setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+       // console.log("current",currentUser)
+       // console.log(response,"response")
+       console.log("fetchind Data")
+        const response = await axios.get(`${host}/login/sucess`, {withCredentials: true});
+        console.log(response,"response");
+        if(response.data.sta==1){
+          if(response.data.user) setCurrentUser(response.data.user);
+        }else{
+          navigate("/login")
+        }
+  
+    } catch (error) {
+      console.log(error)
+      navigate("/login")
+    }
+
+    };
+
+    
+    fetchData();
+  }, []);
 
     useEffect(()=>{
         setActive(pathname.substring(1));
@@ -196,7 +224,7 @@ const Sidebar = ({
                     <Box 
                     component="img"
                     alt="profile"
-                    src={profileImage}
+                    src='https://res.cloudinary.com/drxcjij97/image/upload/v1707052827/zupx5ylgkrtq33lzzkma.png'
                     height="40px"
                     width="40px"
                     borderRadius="50%"
@@ -204,11 +232,11 @@ const Sidebar = ({
                     />
                     <Box textAlign="left">
                         <Typography fontWeight="bold" fontSize="0.9rem" sx={{color:theme.palette.secondary[100]}}>
-                            {user.name}
+                            {currentUser?.name}
                         </Typography>
-                        <Typography  fontSize="0.8rem" sx={{color:theme.palette.secondary[200]}}>
+                        {currentUser?.occupation && <Typography  fontSize="0.8rem" sx={{color:theme.palette.secondary[200]}}>
                             {user.occupation}
-                        </Typography>
+                        </Typography>}
                     </Box>
                     <SettingsOutlined 
                       sx={{color:theme.palette.secondary[300], fontSize:"25px"}}

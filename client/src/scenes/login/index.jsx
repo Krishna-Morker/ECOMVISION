@@ -52,15 +52,16 @@ export default function Login() {
   useEffect(() => {
     const ch = async () => {
       let h=Cookie.get('jwt');
-      console.log(h);
-      
+      console.log(h)
+    if(h!=undefined){
    const response=await axios.get(`${host}/check/${h}`,{withCredentials:true});
-   console.log(response?.data,"login")
-   if(response?.data?.chk==true){
+   console.log(response.data,"login")
+   if(response.data.chk==true){
   
     navigate("/dashboard");
    }
   }
+}
   ch();
   }, []);
 
