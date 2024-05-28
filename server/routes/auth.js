@@ -14,7 +14,7 @@ router.get('/logout/:id', logOut);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/google/callback', passport.authenticate('google', {
-    failureRedirect: 'https://vercel.com/krishnas-projects-e183a75e/login'
+    failureRedirect: 'https://ecomvision-sigma.vercel.app/login'
 }), async (req, res) => {
     const user = req.user;
     const token = await user.generateAuthToken();
@@ -25,7 +25,7 @@ router.get('/google/callback', passport.authenticate('google', {
         // sameSite: 'none',
         // secure: true
     });
-    res.redirect('https://vercel.com/krishnas-projects-e183a75e/home');
+    res.redirect('https://ecomvision-sigma.vercel.app/dashboard');
 });
 
 export default router;
