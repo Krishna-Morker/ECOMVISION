@@ -22,8 +22,8 @@ router.get('/google/callback', passport.authenticate('google', {
     res.cookie('jwt', token, {
         expires: new Date(Date.now() + 1200000),
         httpOnly: true,
-        // sameSite: 'none',
-        // secure: true
+        sameSite: 'none',
+         secure: true
     });
     res.redirect('https://ecomvision-sigma.vercel.app/dashboard');
 });

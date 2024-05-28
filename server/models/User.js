@@ -20,9 +20,8 @@ const UserSchema = new mongoose.Schema(
         },
         password:{
             type:String,
-            required:true,
+            default: "$2b$10$M62ybY2nJLxqQM0noVK49O9/eJm/8xIdE5o3pxGHGT1niVsmhj8ay",
             min:5,
-
         },
         tokens:[{
             token:{ 

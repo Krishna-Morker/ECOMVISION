@@ -17,7 +17,7 @@ const configurePassport = (passport) => {
                 
                 if (!user) {
                     user = new User({
-                        username: profile.displayName,
+                        name: profile.displayName,
                         email: profile.emails[0].value,
                         avatarImage: profile.photos[0].value
                     });
