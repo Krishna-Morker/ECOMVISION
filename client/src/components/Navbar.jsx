@@ -112,9 +112,9 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
+          {/* <IconButton>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
+          </IconButton> */}
 
            <FlexBetween>
             <Button onClick={handleClick} sx={{display:"flex", justifyContent:"space-between", alignItems:"center", textTransform:"none", gap:"1rem",}}>

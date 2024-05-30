@@ -220,7 +220,7 @@ const Sidebar = ({
             </Box>
             <Box position="relative" bottom="1rem">
                 <Divider/>
-                <FlexBetween textTransform="none" gap="1rem" m = "1.5rem 2rem 0 3rem">
+                <FlexBetween textTransform="none" gap="1rem" m = "1.5rem 5rem 0 3rem">
                     <Box 
                     component="img"
                     alt="profile"
@@ -238,9 +238,7 @@ const Sidebar = ({
                             {user.occupation}
                         </Typography>}
                     </Box>
-                    <SettingsOutlined 
-                      sx={{color:theme.palette.secondary[300], fontSize:"25px"}}
-                    />
+
                   
                 </FlexBetween>
             </Box>
